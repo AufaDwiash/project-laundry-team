@@ -58,7 +58,7 @@ public class Menu_RiwayatTransaksi extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Tanggal", "Member", "Keterangan", "Biaya Tambahan", "Batas aktu", "Paket", "Quantity", "Diskon"
+                "Tanggal", "Member", "Keterangan", "Biaya Tambahan", "Tanggal Ambil", "Paket", "Quantity", "Diskon"
             }
         ));
         jScrollPane1.setViewportView(tblMenuRiwayatTransaksi);

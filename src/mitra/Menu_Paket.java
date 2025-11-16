@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Menu_Paket extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Menu_Paket.class.getName());
@@ -36,7 +35,8 @@ public class Menu_Paket extends javax.swing.JFrame {
                     rs.getString("id_paket"),
                     rs.getString("nama_paket"),
                     rs.getString("jenis"),
-                    rs.getString("harga")
+                    rs.getString("harga"),
+                    rs.getString("layanan")
                 });
             }
         } catch (SQLException e) {
@@ -76,6 +76,13 @@ public class Menu_Paket extends javax.swing.JFrame {
         }
     }
 
+    private String capitalize(String text) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+        return text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,6 +108,8 @@ public class Menu_Paket extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPaket = new javax.swing.JTable();
+        cmbJenisLayanan = new javax.swing.JComboBox<>();
+        lblJenisPaket1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -176,13 +185,13 @@ public class Menu_Paket extends javax.swing.JFrame {
         tblPaket.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tblPaket.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nama Paket", "Jenis Paket", "Harga"
+                "ID", "Nama Paket", "Jenis Paket", "Harga", "Layanan"
             }
         ));
         tblPaket.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -192,14 +201,25 @@ public class Menu_Paket extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblPaket);
 
+        cmbJenisLayanan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cmbJenisLayanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "reguler", "express" }));
+        cmbJenisLayanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbJenisLayananActionPerformed(evt);
+            }
+        });
+
+        lblJenisPaket1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblJenisPaket1.setText("Layanan");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(btnClear)
                         .addGap(35, 35, 35)
@@ -208,30 +228,29 @@ public class Menu_Paket extends javax.swing.JFrame {
                         .addComponent(btnDelete)
                         .addGap(39, 39, 39)
                         .addComponent(btnUpdate))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblID)
-                                    .addComponent(lblHarga))
-                                .addGap(29, 29, 29))
-                            .addComponent(lblJenisPaket))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lblJudul)
-                                .addGap(302, 302, 302)
-                                .addComponent(btnHome))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cmbJenisPaket, javax.swing.GroupLayout.Alignment.TRAILING, 0, 410, Short.MAX_VALUE)
-                                    .addComponent(txtHarga, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                                .addComponent(lblID)
+                                .addGap(49, 49, 49))
+                            .addComponent(lblJenisPaket)
+                            .addComponent(lblJenisPaket1))
+                        .addComponent(lblJudul)
+                        .addGap(302, 302, 302)
+                        .addComponent(btnHome))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblNamaPaket)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtNamaPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmbJenisPaket, javax.swing.GroupLayout.Alignment.TRAILING, 0, 410, Short.MAX_VALUE)
+                            .addComponent(cmbJenisLayanan, javax.swing.GroupLayout.Alignment.TRAILING, 0, 410, Short.MAX_VALUE)
+                            .addComponent(txtNamaPaket, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblHarga)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -249,23 +268,27 @@ public class Menu_Paket extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbJenisPaket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblJenisPaket))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNamaPaket)
-                    .addComponent(txtNamaPaket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                    .addComponent(cmbJenisLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblJenisPaket1))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHarga)
-                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                    .addComponent(txtNamaPaket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNamaPaket))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHarga))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete)
                     .addComponent(btnUpdate)
                     .addComponent(btnClear)
                     .addComponent(btnSimpan))
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addContainerGap())
         );
 
         pack();
@@ -289,6 +312,7 @@ public class Menu_Paket extends javax.swing.JFrame {
         String id = txtID.getText();
         String nama = txtNamaPaket.getText();
         String jenis = cmbJenisPaket.getSelectedItem().toString();
+        String layanan = cmbJenisLayanan.getSelectedItem().toString().toLowerCase();
         String harga = txtHarga.getText();
 
         if (id.isEmpty() || nama.isEmpty() || harga.isEmpty()) {
@@ -296,13 +320,14 @@ public class Menu_Paket extends javax.swing.JFrame {
             return;
         }
 
-        String query = "INSERT INTO tb_paket (id_paket, nama_paket, jenis, harga) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO tb_paket (id_paket, nama_paket, jenis, layanan, harga) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, id);
             stmt.setString(2, nama);
             stmt.setString(3, jenis);
-            stmt.setString(4, harga);
+            stmt.setString(4, layanan);  // ✔ benar
+            stmt.setString(5, harga);    // ✔ benar
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
@@ -324,14 +349,16 @@ public class Menu_Paket extends javax.swing.JFrame {
         String nama = txtNamaPaket.getText();
         String jenis = cmbJenisPaket.getSelectedItem().toString();
         String harga = txtHarga.getText();
-
-        String query = "UPDATE tb_paket SET nama_paket=?, jenis=?, harga=? WHERE id_paket=?";
+        String layanan = cmbJenisLayanan.getSelectedItem().toString().toLowerCase();
+        String query = "UPDATE tb_paket SET nama_paket=?, jenis=?, layanan=?, harga=? WHERE id_paket=?";
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
+
             stmt.setString(1, nama);
             stmt.setString(2, jenis);
-            stmt.setString(3, harga);
-            stmt.setString(4, id);
+            stmt.setString(3, layanan);
+            stmt.setString(4, harga);
+            stmt.setString(5, id);  
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(this, "Data berhasil diupdate!");
@@ -383,9 +410,16 @@ public class Menu_Paket extends javax.swing.JFrame {
             txtNamaPaket.setText(tblPaket.getValueAt(row, 1).toString());
             cmbJenisPaket.setSelectedItem(tblPaket.getValueAt(row, 2).toString());
             txtHarga.setText(tblPaket.getValueAt(row, 3).toString());
+            cmbJenisLayanan.setSelectedItem(
+                    capitalize(tblPaket.getValueAt(row, 4).toString())
+            );
         }
 
     }//GEN-LAST:event_tblPaketMouseClicked
+
+    private void cmbJenisLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJenisLayananActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbJenisLayananActionPerformed
 
     /**
      * @param args the command line arguments
@@ -418,11 +452,13 @@ public class Menu_Paket extends javax.swing.JFrame {
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cmbJenisLayanan;
     private javax.swing.JComboBox<String> cmbJenisPaket;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblHarga;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblJenisPaket;
+    private javax.swing.JLabel lblJenisPaket1;
     private javax.swing.JLabel lblJudul;
     private javax.swing.JLabel lblNamaPaket;
     private javax.swing.JTable tblPaket;

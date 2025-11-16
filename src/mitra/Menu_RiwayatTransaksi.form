@@ -99,7 +99,7 @@
                 <Column editable="true" title="Member" type="java.lang.Object"/>
                 <Column editable="true" title="Keterangan" type="java.lang.Object"/>
                 <Column editable="true" title="Biaya Tambahan" type="java.lang.Object"/>
-                <Column editable="true" title="Batas aktu" type="java.lang.Object"/>
+                <Column editable="true" title="Tanggal Ambil" type="java.lang.Object"/>
                 <Column editable="true" title="Paket" type="java.lang.Object"/>
                 <Column editable="true" title="Quantity" type="java.lang.Object"/>
                 <Column editable="true" title="Diskon" type="java.lang.Object"/>
