@@ -345,7 +345,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
             }
         });
 
-        btnTambah.setBackground(new java.awt.Color(204, 204, 255));
+        btnTambah.setBackground(new java.awt.Color(51, 255, 0));
         btnTambah.setFont(new java.awt.Font("Segoe UI Semilight", 1, 18)); // NOI18N
         btnTambah.setText("Tambah");
         btnTambah.addActionListener(new java.awt.event.ActionListener() {
@@ -479,7 +479,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(692, 692, 692))
+                        .addGap(788, 788, 788))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
