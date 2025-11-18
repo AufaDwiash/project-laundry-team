@@ -193,7 +193,7 @@ public class Menu_RiwayatTransaksi extends javax.swing.JFrame {
                 pst.executeUpdate();
 
                 JOptionPane.showMessageDialog(this, "Data berhasil dihapus!");
-                loadData(); // refresh tabel
+                loadData(); 
 
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this,
