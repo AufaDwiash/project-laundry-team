@@ -1,13 +1,11 @@
 package Mitra;
+
 import javax.swing.*;
 
 public class Menu_Login extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Menu_Login.class.getName());
 
-    /**
-     * Creates new form Menu_Paket
-     */
     public Menu_Login() {
         initComponents();
         setLocationRelativeTo(null);                 // tengah layar
@@ -28,10 +26,10 @@ public class Menu_Login extends javax.swing.JFrame {
         lblUsername = new javax.swing.JLabel();
         lblLogin = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
-        txtPassword = new javax.swing.JPasswordField();
         lblLogin2 = new javax.swing.JLabel();
+        jUsername = new javax.swing.JTextField();
+        jPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -60,15 +58,15 @@ public class Menu_Login extends javax.swing.JFrame {
             }
         });
 
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordActionPerformed(evt);
-            }
-        });
-
         lblLogin2.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
         lblLogin2.setForeground(new java.awt.Color(0, 0, 204));
         lblLogin2.setToolTipText("");
+
+        jPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,13 +77,17 @@ public class Menu_Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsername)
                     .addComponent(lblPassword))
-                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblLogin))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(lblLogin)
+                        .addContainerGap(122, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                            .addComponent(jPassword))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(82, 82, 82)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -96,55 +98,83 @@ public class Menu_Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(lblLogin)
-                .addGap(51, 51, 51)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsername)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                    .addComponent(jUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96))
+                .addGap(99, 99, 99))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // SEKARANG: ambil username dari field bawah, password dari field atas
-     String username = new String(txtPassword.getPassword()); // field atas
-     String password = txtUsername.getText();                 // field bawah
 
+        String username = jUsername.getText().trim();
+        String password = new String(jPassword.getPassword()).trim();
 
-         if (username.equals("admin") && password.equals("12345")) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Login berhasil. Selamat datang, admin!",
-                    "Sukses",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-            
-                // BUKA MENU UTAMA
-            new Menu_Utama().setVisible(true);
-            this.dispose();
-            
-         } else {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Username atau password salah!",
-                    "Gagal",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            txtPassword.setText("");
-            txtPassword.requestFocus();
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Username dan Password tidak boleh kosong!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            String sql = "SELECT * FROM tb_user WHERE username=? AND password=?";
+            java.sql.Connection conn = Koneksi.getConnection();
+
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+
+            pst.setString(1, username);
+            pst.setString(2, password);
+
+            java.sql.ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+
+                String nama = rs.getString("nama");
+                String role = rs.getString("role");
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Login berhasil. Selamat datang, " + nama + " (" + role + ")",
+                        "Sukses", JOptionPane.INFORMATION_MESSAGE
+                );
+
+                // SIMPAN ROLE JIKA DIBUTUHKAN DI MENU SELANJUTNYA
+                Menu_Utama mu = new Menu_Utama();
+                mu.setVisible(true);
+
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Username atau password salah!",
+                        "Gagal", JOptionPane.ERROR_MESSAGE
+                );
+                jUsername.setText("");
+                jUsername.requestFocus();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Terjadi kesalahan: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+    private void jPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPasswordActionPerformed
+    }//GEN-LAST:event_jPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,11 +203,11 @@ public class Menu_Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
+    private javax.swing.JPasswordField jPassword;
+    private javax.swing.JTextField jUsername;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblLogin2;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblUsername;
-    private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

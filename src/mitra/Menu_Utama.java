@@ -46,7 +46,7 @@ public class Menu_Utama extends javax.swing.JFrame {
 
         lblJudul.setText("Menu Utama");
 
-        btnLogin.setText("Login");
+        btnLogin.setText("LogOut");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
