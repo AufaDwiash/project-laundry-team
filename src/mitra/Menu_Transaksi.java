@@ -374,7 +374,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblTransaksi);
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel2.setBackground(new java.awt.Color(102, 204, 255));
 
         lblJudul.setFont(new java.awt.Font("Stencil", 1, 36)); // NOI18N
         lblJudul.setForeground(new java.awt.Color(255, 255, 255));
