@@ -10,6 +10,10 @@ public class Menu_Login extends javax.swing.JFrame {
      */
     public Menu_Login() {
         initComponents();
+        setLocationRelativeTo(null);                 // tengah layar
+        getRootPane().setDefaultButton(btnLogin);    // tekan Enter = login
+        setTitle("Login");
+
     }
 
     /**
@@ -109,14 +113,32 @@ public class Menu_Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String username = txtUsername.getText();
-        String password = new String(txtPassword.getPassword());
-        
-        //login
-        if(username.equals("admin")&& password.equals("12345")){
-            btnLogin.setText("Login berhasil");
-        } else {
-            btnLogin.setText("Username atau password salah.");
+        // SEKARANG: ambil username dari field bawah, password dari field atas
+    String username = new String(txtPassword.getPassword()); // field atas
+    String password = txtUsername.getText();                 // field bawah
+
+
+         if (username.equals("admin") && password.equals("12345")) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Login berhasil. Selamat datang, admin!",
+                    "Sukses",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            
+                // BUKA MENU UTAMA
+            new Menu_Utama().setVisible(true);
+            this.dispose();
+            
+         } else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Username atau password salah!",
+                    "Gagal",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            txtPassword.setText("");
+            txtPassword.requestFocus();
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
