@@ -1,4 +1,4 @@
-package mitra;
+package Mitra;
 
 import javax.swing.*;
 import java.sql.Connection;

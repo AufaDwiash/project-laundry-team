@@ -114,8 +114,8 @@ public class Menu_Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // SEKARANG: ambil username dari field bawah, password dari field atas
-    String username = new String(txtPassword.getPassword()); // field atas
-    String password = txtUsername.getText();                 // field bawah
+     String username = new String(txtPassword.getPassword()); // field atas
+     String password = txtUsername.getText();                 // field bawah
 
 
          if (username.equals("admin") && password.equals("12345")) {
