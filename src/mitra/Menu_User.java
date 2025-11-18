@@ -114,7 +114,7 @@ public class Menu_User extends javax.swing.JFrame {
 
         lblID.setBackground(new java.awt.Color(51, 0, 51));
         lblID.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblID.setForeground(new java.awt.Color(255, 102, 255));
+        lblID.setForeground(new java.awt.Color(51, 51, 0));
         lblID.setText("ID");
 
         lblNama.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
