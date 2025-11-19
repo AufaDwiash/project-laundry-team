@@ -378,6 +378,8 @@ public class Menu_User extends javax.swing.JFrame {
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         JOptionPane.showMessageDialog(this, "Kembali ke menu utama!");
+          new Menu_Utama().setVisible(true);
+            this.dispose();
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void tblUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUserMouseClicked
