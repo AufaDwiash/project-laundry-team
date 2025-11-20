@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 import java.text.SimpleDateFormat;
+import java.awt.Font;
+import java.awt.print.PrinterException;
 
 public class Menu_Transaksi extends javax.swing.JFrame {
 
@@ -57,75 +59,80 @@ public class Menu_Transaksi extends javax.swing.JFrame {
 
         // Event klik baris pada tabel
         tblTransaksi.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                int row = tblTransaksi.getSelectedRow();
-                if (row == -1) {
-                    return;
-                }
-
-                System.out.println("Row selected: " + row);
-
-                String tanggal = String.valueOf(tblTransaksi.getValueAt(row, 1));
-                String member = String.valueOf(tblTransaksi.getValueAt(row, 2));
-                String keterangan = String.valueOf(tblTransaksi.getValueAt(row, 3));
-                String biayaTambahan = String.valueOf(tblTransaksi.getValueAt(row, 4));
-                String batas = String.valueOf(tblTransaksi.getValueAt(row, 5));
-                String paket = String.valueOf(tblTransaksi.getValueAt(row, 6));
-                String qty = String.valueOf(tblTransaksi.getValueAt(row, 7));
-                String diskon = String.valueOf(tblTransaksi.getValueAt(row, 8));
-                String statusPembayaran = String.valueOf(tblTransaksi.getValueAt(row, 9));
-
-                Object tglAmbilObj = tblTransaksi.getValueAt(row, 10);
-                String tglAmbil = (tglAmbilObj == null) ? "" : tglAmbilObj.toString();
-
-                String status = String.valueOf(tblTransaksi.getValueAt(row, 11));
-                String layanan = String.valueOf(tblTransaksi.getValueAt(row, 12));
-
-                try {
-                    SimpleDateFormat fmtDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    SimpleDateFormat fmtDateOnly = new SimpleDateFormat("yyyy-MM-dd");
-
-                    // tgl transaksi
-                    java.util.Date tgl = (tanggal.contains(":") ? fmtDateTime : fmtDateOnly).parse(tanggal);
-                    // estimasi selesai
-                    java.util.Date batasTgl = (batas.contains(":") ? fmtDateTime : fmtDateOnly).parse(batas);
-
-                    // tgl ambil (boleh null)
-                    java.util.Date ambilTgl = null;
-                    if (tglAmbil != null && !tglAmbil.trim().isEmpty()
-                            && !"null".equalsIgnoreCase(tglAmbil)) {
-                        ambilTgl = (tglAmbil.contains(":") ? fmtDateTime : fmtDateOnly).parse(tglAmbil);
-                    }
-
-                    // set ke JDateChooser
-                    jDateChooser1.setDate(tgl);
-                    jDateChooser2.setDate(batasTgl);
-                    jDateChooser3.setDate(ambilTgl); // boleh null
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-                // Set nilai ke form lain
-                cmbMember1.setSelectedItem(member);
-                txtKeterangan.setText(keterangan);
-                txtBiayaTambahan.setText(biayaTambahan);
-                cmbPaket.setSelectedItem(paket);
-                txtQuantity.setText(qty);
-                cmbDiskon.setSelectedItem(diskon);
-                jComboBox1.setSelectedItem(statusPembayaran);
-                jComboBox2.setSelectedItem(status);
-                cmbLayanan.setSelectedItem(layanan);
-
-                // MODE EDIT: Tambah dimatikan, Perbarui & Hapus dinyalakan
-                btnTambah.setEnabled(false);
-                btnClear1.setEnabled(true);
-                btnDelete.setEnabled(true);
+            if (e.getValueIsAdjusting()) {
+                return;
             }
+
+            int row = tblTransaksi.getSelectedRow();
+
+            // 🔹 Kalau tidak ada baris yang dipilih
+            if (row == -1) {
+                // mode kembali ke TAMBAH
+                btnTambah.setEnabled(true);
+                btnClear1.setEnabled(false);
+                btnDelete.setEnabled(false);
+                btnCetak.setEnabled(false);   // ⬅️ cetak tidak bisa dipakai
+                return;
+            }
+
+            System.out.println("Row selected: " + row);
+
+            String tanggal = String.valueOf(tblTransaksi.getValueAt(row, 1));
+            String member = String.valueOf(tblTransaksi.getValueAt(row, 2));
+            String keterangan = String.valueOf(tblTransaksi.getValueAt(row, 3));
+            String biayaTambahan = String.valueOf(tblTransaksi.getValueAt(row, 4));
+            String batas = String.valueOf(tblTransaksi.getValueAt(row, 5));
+            String paket = String.valueOf(tblTransaksi.getValueAt(row, 6));
+            String qty = String.valueOf(tblTransaksi.getValueAt(row, 7));
+            String diskon = String.valueOf(tblTransaksi.getValueAt(row, 8));
+            String statusPembayaran = String.valueOf(tblTransaksi.getValueAt(row, 9));
+            Object tglAmbilObj = tblTransaksi.getValueAt(row, 10);
+            String tglAmbil = (tglAmbilObj == null) ? "" : tglAmbilObj.toString();
+            String status = String.valueOf(tblTransaksi.getValueAt(row, 11));
+            String layanan = String.valueOf(tblTransaksi.getValueAt(row, 12));
+
+            try {
+                SimpleDateFormat fmtDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat fmtDateOnly = new SimpleDateFormat("yyyy-MM-dd");
+
+                java.util.Date tgl = (tanggal.contains(":") ? fmtDateTime : fmtDateOnly).parse(tanggal);
+                java.util.Date batasTgl = (batas.contains(":") ? fmtDateTime : fmtDateOnly).parse(batas);
+
+                java.util.Date ambilTgl = null;
+                if (tglAmbil != null && !tglAmbil.trim().isEmpty()
+                        && !"null".equalsIgnoreCase(tglAmbil)) {
+                    ambilTgl = (tglAmbil.contains(":") ? fmtDateTime : fmtDateOnly).parse(tglAmbil);
+                }
+
+                jDateChooser1.setDate(tgl);
+                jDateChooser2.setDate(batasTgl);
+                jDateChooser3.setDate(ambilTgl);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            cmbMember1.setSelectedItem(member);
+            txtKeterangan.setText(keterangan);
+            txtBiayaTambahan.setText(biayaTambahan);
+            cmbPaket.setSelectedItem(paket);
+            txtQuantity.setText(qty);
+            cmbDiskon.setSelectedItem(diskon);
+            jComboBox1.setSelectedItem(statusPembayaran);
+            jComboBox2.setSelectedItem(status);
+            cmbLayanan.setSelectedItem(layanan);
+
+            // 🔹 Mode EDIT
+            btnTambah.setEnabled(false);
+            btnClear1.setEnabled(true);
+            btnDelete.setEnabled(true);
+            btnCetak.setEnabled(true);  // ⬅️ sekarang boleh cetak
         });
+
         btnClear1.setEnabled(false);  // Perbarui
         btnDelete.setEnabled(false);  // Hapus
         btnTambah.setEnabled(true);   // Tambah on di awal
+        btnCetak.setEnabled(false);   // ⬅️ CETAK awalnya non-aktif
     }
 
     private Connection conn;
@@ -201,7 +208,11 @@ public class Menu_Transaksi extends javax.swing.JFrame {
             pst.setString(4, keterangan);
             pst.setTimestamp(5, new java.sql.Timestamp(tgl.getTime()));
             pst.setTimestamp(6, new java.sql.Timestamp(estimasi.getTime()));
-            pst.setTimestamp(7, new java.sql.Timestamp(tglAmbil.getTime()));
+            if (tglAmbil != null) {
+                pst.setTimestamp(7, new java.sql.Timestamp(tglAmbil.getTime()));
+            } else {
+                pst.setNull(7, java.sql.Types.TIMESTAMP);
+            }
             pst.setInt(8, biayaTambahan);
             pst.setDouble(9, diskon);
             pst.setString(10, status);
@@ -225,12 +236,11 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                 + "       t.keterangan, t.biaya_tambahan, t.estimasi_selesai, "
                 + "       p.nama_paket, p.harga, t.qty, t.diskon, t.status_pembayaran, "
                 + "       t.tgl_ambil, t.status, t.layanan, "
-                + // 💰 hitung total:
-                // versi diskon = nilai langsung (rupiah)
-                "       ( (p.harga * t.qty) + t.biaya_tambahan - t.diskon ) AS total "
+                + "       ((p.harga * t.qty) + t.biaya_tambahan - t.diskon) AS total "
                 + "FROM tb_transaksi t "
                 + "JOIN tb_member m ON t.id_member = m.id_member "
-                + "LEFT JOIN tb_paket p ON t.id_paket = p.id_paket";
+                + "LEFT JOIN tb_paket p ON t.id_paket = p.id_paket "
+                + "ORDER BY t.id_transaksi ASC";
 
         try (PreparedStatement pst = conn.prepareStatement(sql); ResultSet rs = pst.executeQuery()) {
 
@@ -292,6 +302,67 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         jComboBox2.setSelectedIndex(0); // status
     }
 
+    private void cetakStrukDariRow(int row) {
+        if (row < 0 || row >= tblTransaksi.getRowCount()) {
+            JOptionPane.showMessageDialog(this, "Data transaksi tidak valid untuk dicetak.");
+            return;
+        }
+
+        String idTransaksi = String.valueOf(tblTransaksi.getValueAt(row, 0));
+        String tanggal = String.valueOf(tblTransaksi.getValueAt(row, 1));
+        String member = String.valueOf(tblTransaksi.getValueAt(row, 2));
+        String keterangan = String.valueOf(tblTransaksi.getValueAt(row, 3));
+        String biayaTambahan = String.valueOf(tblTransaksi.getValueAt(row, 4));
+        String estimasiSelesai = String.valueOf(tblTransaksi.getValueAt(row, 5));
+        String paket = String.valueOf(tblTransaksi.getValueAt(row, 6));
+        String qty = String.valueOf(tblTransaksi.getValueAt(row, 7));
+        String diskon = String.valueOf(tblTransaksi.getValueAt(row, 8));
+        String statusBayar = String.valueOf(tblTransaksi.getValueAt(row, 9));
+        String tglAmbil = String.valueOf(tblTransaksi.getValueAt(row, 10));
+        String status = String.valueOf(tblTransaksi.getValueAt(row, 11));
+        String layanan = String.valueOf(tblTransaksi.getValueAt(row, 12));
+        String total = String.valueOf(tblTransaksi.getValueAt(row, 13));
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("        LAUNDRY XYZ\n");
+        sb.append("     JL. CONTOH ALAMAT NO. 1\n");
+        sb.append("        Telp: 08xx-xxxx-xxxx\n");
+        sb.append("================================\n");
+        sb.append("No. Trans : ").append(idTransaksi).append("\n");
+        sb.append("Tanggal   : ").append(tanggal).append("\n");
+        sb.append("Member    : ").append(member).append("\n");
+        sb.append("--------------------------------\n");
+        sb.append("Paket     : ").append(paket).append("\n");
+        sb.append("Layanan   : ").append(layanan).append("\n");
+        sb.append("Qty       : ").append(qty).append(" kg\n");
+        sb.append("Biaya Tamb: Rp ").append(biayaTambahan).append("\n");
+        sb.append("Diskon    : ").append(diskon).append("\n");
+        sb.append("Estimasi  : ").append(estimasiSelesai).append("\n");
+        sb.append("Tgl Ambil : ").append(tglAmbil).append("\n");
+        sb.append("Status    : ").append(status).append("\n");
+        sb.append("Status Bayar: ").append(statusBayar).append("\n");
+        sb.append("--------------------------------\n");
+        sb.append("TOTAL BAYAR: Rp ").append(total).append("\n");
+        sb.append("Keterangan :    ").append(keterangan).append("\n");
+        sb.append("================================\n");
+        sb.append(" Terima kasih sudah mencuci di\n");
+        sb.append("          LAUNDRY XYZ\n");
+
+        JTextArea area = new JTextArea(sb.toString());
+        area.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
+
+        try {
+            boolean complete = area.print();
+            if (complete) {
+                JOptionPane.showMessageDialog(this, "Struk berhasil dikirim ke printer.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Cetak struk dibatalkan.");
+            }
+        } catch (java.awt.print.PrinterException ex) {
+            JOptionPane.showMessageDialog(this, "Gagal mencetak struk: " + ex.getMessage());
+        }
+    }
+
 // Versi untuk int (buang desimal jika ada)
     private int parseIntSafe(String s) throws NumberFormatException {
         double d = parseDoubleSafe(s);
@@ -333,6 +404,11 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblJudul = new javax.swing.JLabel();
         btnHome = new javax.swing.JButton();
+        btnRiwayat = new javax.swing.JButton();
+        btnTransaksi = new javax.swing.JButton();
+        btnPaket = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        btnUser = new javax.swing.JButton();
         lblBatasWaktu1 = new javax.swing.JLabel();
         jDateChooser3 = new com.toedter.calendar.JDateChooser();
         lblBiayaTambahan1 = new javax.swing.JLabel();
@@ -344,6 +420,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         cmbLayanan = new javax.swing.JComboBox<>();
         lblDiskon1 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
+        btnCetak = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -441,17 +518,71 @@ public class Menu_Transaksi extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(102, 204, 255));
 
-        lblJudul.setFont(new java.awt.Font("Old English Text MT", 1, 24)); // NOI18N
-        lblJudul.setForeground(new java.awt.Color(51, 0, 51));
-        lblJudul.setText("Menu TransaksI");
+        lblJudul.setFont(new java.awt.Font("Imprint MT Shadow", 1, 24)); // NOI18N
+        lblJudul.setForeground(new java.awt.Color(255, 255, 255));
+        lblJudul.setText("Menu Transaksi");
 
-        btnHome.setBackground(new java.awt.Color(0, 0, 0));
+        btnHome.setBackground(new java.awt.Color(255, 0, 0));
         btnHome.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         btnHome.setForeground(new java.awt.Color(255, 255, 255));
         btnHome.setText("Home");
+        btnHome.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), new java.awt.Color(255, 255, 255), null));
         btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHomeActionPerformed(evt);
+            }
+        });
+
+        btnRiwayat.setBackground(new java.awt.Color(102, 204, 255));
+        btnRiwayat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRiwayat.setForeground(new java.awt.Color(255, 255, 255));
+        btnRiwayat.setText("Riwayat");
+        btnRiwayat.setBorder(null);
+        btnRiwayat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRiwayatActionPerformed(evt);
+            }
+        });
+
+        btnTransaksi.setBackground(new java.awt.Color(204, 204, 204));
+        btnTransaksi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTransaksi.setText("Transaksi");
+        btnTransaksi.setBorder(null);
+        btnTransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransaksiActionPerformed(evt);
+            }
+        });
+
+        btnPaket.setBackground(new java.awt.Color(102, 204, 255));
+        btnPaket.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPaket.setForeground(new java.awt.Color(255, 255, 255));
+        btnPaket.setText("Paket");
+        btnPaket.setBorder(null);
+        btnPaket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPaketActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(102, 204, 255));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Member");
+        jButton2.setBorder(null);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        btnUser.setBackground(new java.awt.Color(102, 204, 255));
+        btnUser.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnUser.setText("User");
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserActionPerformed(evt);
             }
         });
 
@@ -460,20 +591,35 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(30, 30, 30)
                 .addComponent(lblJudul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnHome)
-                .addGap(36, 36, 36))
+                .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblJudul)
-                    .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblJudul, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+            .addComponent(btnPaket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(2, 2, 2))
+            .addComponent(btnRiwayat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         lblBatasWaktu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -524,50 +670,28 @@ public class Menu_Transaksi extends javax.swing.JFrame {
             }
         });
 
+        btnCetak.setBackground(java.awt.Color.cyan);
+        btnCetak.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
+        btnCetak.setText("Cetak Struk");
+        btnCetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCetakActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblKeterangan)
-                    .addComponent(lblMember)
-                    .addComponent(lblTanggal)
-                    .addComponent(lblBiayaTambahan)
-                    .addComponent(lblBiayaTambahan1)
-                    .addComponent(lblBiayaTambahan2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbMember1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtKeterangan)
-                    .addComponent(txtBiayaTambahan)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBatasWaktu)
-                    .addComponent(lblBatasWaktu1)
-                    .addComponent(lblPaket)
-                    .addComponent(lblQuantity)
-                    .addComponent(lblDiskon1)
-                    .addComponent(lblDiskon))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbPaket, 0, 502, Short.MAX_VALUE)
-                    .addComponent(txtQuantity)
-                    .addComponent(cmbDiskon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(63, 63, 63))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(btnTambah)
@@ -576,14 +700,50 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnClear1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCetak))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblKeterangan)
+                            .addComponent(lblMember)
+                            .addComponent(lblTanggal)
+                            .addComponent(lblBiayaTambahan)
+                            .addComponent(lblBiayaTambahan1)
+                            .addComponent(lblBiayaTambahan2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbMember1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtKeterangan)
+                            .addComponent(txtBiayaTambahan)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBatasWaktu)
+                            .addComponent(lblBatasWaktu1)
+                            .addComponent(lblPaket)
+                            .addComponent(lblQuantity)
+                            .addComponent(lblDiskon1)
+                            .addComponent(lblDiskon))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateChooser3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbPaket, 0, 502, Short.MAX_VALUE)
+                            .addComponent(txtQuantity)
+                            .addComponent(cmbDiskon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -595,7 +755,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                                     .addComponent(lblBatasWaktu1)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTanggal)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblMember)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -613,40 +773,38 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblBiayaTambahan2)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(cmbPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblPaket))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblQuantity))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(cmbDiskon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblDiskon)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addComponent(lblBatasWaktu)))
+                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblDiskon1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cmbPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblPaket))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblQuantity))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cmbDiskon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblDiskon)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(lblBatasWaktu)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDiskon1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTambah)
                     .addComponent(btnClear)
                     .addComponent(btnClear1)
-                    .addComponent(btnDelete))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(btnDelete)
+                    .addComponent(btnCetak))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -677,6 +835,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         // hilangkan selection di tabel (optional)
         tblTransaksi.clearSelection();
 
+        btnCetak.setEnabled(false);// ⬅️ tidak ada yang dipilih, tidak boleh cetak
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
@@ -734,7 +893,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
 
             java.util.Date tgl = jDateChooser1.getDate();
             java.util.Date estimasi = jDateChooser2.getDate();
-            java.util.Date tglAmbil = jDateChooser3.getDate();
+            java.util.Date tglAmbil = jDateChooser3.getDate();  // boleh null
 
             if (tgl == null || estimasi == null) {
                 JOptionPane.showMessageDialog(this, "Tanggal dan Estimasi Selesai tidak boleh kosong.");
@@ -746,7 +905,8 @@ public class Menu_Transaksi extends javax.swing.JFrame {
 
             // 5️⃣ INSERT TRANSAKSI
             String sqlInsert = "INSERT INTO tb_transaksi "
-                    + "(id_member, id_paket, qty, keterangan, tgl, estimasi_selesai, tgl_ambil, biaya_tambahan, diskon, status, status_pembayaran, layanan) "
+                    + "(id_member, id_paket, qty, keterangan, tgl, estimasi_selesai, "
+                    + "tgl_ambil, biaya_tambahan, diskon, status, status_pembayaran, layanan) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement pst = conn.prepareStatement(sqlInsert)) {
@@ -757,12 +917,13 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                 pst.setTimestamp(5, new java.sql.Timestamp(tgl.getTime()));
                 pst.setTimestamp(6, new java.sql.Timestamp(estimasi.getTime()));
 
+                // ✅ TIDAK NPE LAGI KALAU tglAmbil NULL
                 if (tglAmbil != null) {
                     pst.setTimestamp(7, new java.sql.Timestamp(tglAmbil.getTime()));
                 } else {
                     pst.setNull(7, java.sql.Types.TIMESTAMP);
                 }
-                pst.setTimestamp(7, new java.sql.Timestamp(tglAmbil.getTime()));
+
                 pst.setInt(8, biayaTambahan);
                 pst.setDouble(9, diskon);
                 pst.setString(10, status);
@@ -772,18 +933,39 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                 pst.executeUpdate();
             }
 
-            JOptionPane.showMessageDialog(this, "✅ Transaksi berhasil disimpan!");
+            // ✅ Refresh tabel setelah insert
             loadTransaksi();
-            btnClearActionPerformed(null); // bersihkan form
+
+            // Ambil baris terakhir (anggap ORDER BY id_transaksi ASC di loadTransaksi)
+            int lastRow = tblTransaksi.getRowCount() - 1;
+
+            // Popup dengan tombol "Cetak Struk" dan "Tutup"
+            Object[] options = {"Cetak Struk", "Tutup"};
+            int pilihan = JOptionPane.showOptionDialog(
+                    this,
+                    "✅ Transaksi berhasil disimpan!\n\nIngin cetak struk sekarang?",
+                    "Transaksi Berhasil",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            );
+
+            // Kalau user pilih Cetak Struk
+            if (pilihan == JOptionPane.YES_OPTION && lastRow >= 0) {
+                tblTransaksi.setRowSelectionInterval(lastRow, lastRow); // seleksi baris di tabel
+                cetakStrukDariRow(lastRow); // panggil fungsi cetak yang sudah kamu buat
+            }
+
+            // Terakhir, bersihkan form & balik ke mode tambah
+            btnClearActionPerformed(null);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Pastikan angka (Qty / Biaya / Diskon) diisi dengan benar.\n" + e.getMessage());
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "❌ Error database: " + e.getMessage());
         }
-        JOptionPane.showMessageDialog(this, "✅ Transaksi berhasil disimpan!");
-        loadTransaksi();
-        btnClearActionPerformed(null); // bersihkan form
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
@@ -982,6 +1164,41 @@ public class Menu_Transaksi extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnRiwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiwayatActionPerformed
+        new Menu_RiwayatTransaksi().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRiwayatActionPerformed
+
+    private void btnTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransaksiActionPerformed
+        new Menu_Transaksi().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnTransaksiActionPerformed
+
+    private void btnPaketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaketActionPerformed
+        new Menu_Paket().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPaketActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        new Menu_Member().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+        new Menu_User().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnUserActionPerformed
+
+    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
+        int row = tblTransaksi.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih transaksi dulu sebelum mencetak struk.");
+            return;
+        }
+        cetakStrukDariRow(row);
+    }//GEN-LAST:event_btnCetakActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1008,15 +1225,21 @@ public class Menu_Transaksi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnClear1;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnPaket;
+    private javax.swing.JButton btnRiwayat;
     private javax.swing.JButton btnTambah;
+    private javax.swing.JButton btnTransaksi;
+    private javax.swing.JButton btnUser;
     private javax.swing.JComboBox<String> cmbDiskon;
     private javax.swing.JComboBox<String> cmbLayanan;
     private javax.swing.JComboBox<String> cmbMember1;
     private javax.swing.JComboBox<String> cmbPaket;
+    private javax.swing.JButton jButton2;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JCalendar jCalendar2;
     private com.toedter.calendar.JCalendar jCalendar3;

@@ -37,7 +37,6 @@ public class Menu_Utama extends javax.swing.JFrame {
         btnRiwayat = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
@@ -53,6 +52,7 @@ public class Menu_Utama extends javax.swing.JFrame {
             }
         });
 
+        btnTransaksi.setBackground(new java.awt.Color(153, 153, 255));
         btnTransaksi.setText("Transaksi");
         btnTransaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,6 +60,7 @@ public class Menu_Utama extends javax.swing.JFrame {
             }
         });
 
+        btnPaket.setBackground(new java.awt.Color(153, 153, 255));
         btnPaket.setText("Paket");
         btnPaket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,6 +68,7 @@ public class Menu_Utama extends javax.swing.JFrame {
             }
         });
 
+        btnUser.setBackground(new java.awt.Color(204, 204, 255));
         btnUser.setText("User");
         btnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,6 +76,7 @@ public class Menu_Utama extends javax.swing.JFrame {
             }
         });
 
+        btnRiwayat.setBackground(new java.awt.Color(204, 204, 255));
         btnRiwayat.setText("Riwayat");
         btnRiwayat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,13 +87,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Viner Hand ITC", 1, 12)); // NOI18N
         jLabel2.setText("Queen Laundry");
 
-        jButton1.setText("Laporan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
+        jButton2.setBackground(new java.awt.Color(102, 102, 255));
         jButton2.setText("Member");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,25 +108,26 @@ public class Menu_Utama extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
                         .addComponent(btnLogin)
-                        .addGap(34, 34, 34))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnTransaksi)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPaket)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnUser)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnRiwayat)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton1)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton2)
-                        .addGap(0, 70, Short.MAX_VALUE))))
+                        .addGap(34, 34, 34))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(230, 230, 230)
-                .addComponent(lblJudul)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(230, 230, 230)
+                        .addComponent(lblJudul))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnPaket, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                                    .addComponent(btnRiwayat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,17 +139,19 @@ public class Menu_Utama extends javax.swing.JFrame {
                     .addComponent(btnLogin))
                 .addGap(4, 4, 4)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblJudul)
-                .addGap(55, 55, 55)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTransaksi)
-                    .addComponent(btnPaket)
-                    .addComponent(btnUser)
-                    .addComponent(btnRiwayat)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(150, Short.MAX_VALUE))
+                    .addComponent(btnTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRiwayat, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -184,12 +184,6 @@ public class Menu_Utama extends javax.swing.JFrame {
         new Menu_Transaksi().setVisible(true);
             this.dispose();
     }//GEN-LAST:event_btnTransaksiActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-          new Menu_Laporan().setVisible(true);
-            this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -228,7 +222,6 @@ public class Menu_Utama extends javax.swing.JFrame {
     private javax.swing.JButton btnRiwayat;
     private javax.swing.JButton btnTransaksi;
     private javax.swing.JButton btnUser;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
