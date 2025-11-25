@@ -62,13 +62,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblID" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblJenisPaket" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblJenisPaket1" min="-2" max="-2" attributes="0"/>
                           <Component id="lblNamaPaket" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="cmbJenisLayanan" alignment="0" max="32767" attributes="0"/>
                               <Component id="cmbJenisPaket" alignment="0" pref="462" max="32767" attributes="0"/>
                               <Component id="txtID" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -100,11 +98,6 @@
                           <Component id="lblJenisPaket" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cmbJenisLayanan" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                          <Component id="lblJenisPaket1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtNamaPaket" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                           <Component id="lblNamaPaket" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -221,33 +214,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JComboBox" name="cmbJenisLayanan">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
-        </Property>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="reguler"/>
-            <StringItem index="1" value="express"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbJenisLayananActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblJenisPaket1">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Layanan"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="btnUpdate">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">

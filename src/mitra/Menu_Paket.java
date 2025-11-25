@@ -104,8 +104,6 @@ public class Menu_Paket extends javax.swing.JFrame {
         txtHarga = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPaket = new javax.swing.JTable();
-        cmbJenisLayanan = new javax.swing.JComboBox<>();
-        lblJenisPaket1 = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
@@ -175,17 +173,6 @@ public class Menu_Paket extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblPaket);
-
-        cmbJenisLayanan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        cmbJenisLayanan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "reguler", "express" }));
-        cmbJenisLayanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbJenisLayananActionPerformed(evt);
-            }
-        });
-
-        lblJenisPaket1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblJenisPaket1.setText("Layanan");
 
         btnUpdate.setBackground(new java.awt.Color(51, 51, 255));
         btnUpdate.setFont(new java.awt.Font("Segoe UI Symbol", 1, 18)); // NOI18N
@@ -336,12 +323,10 @@ public class Menu_Paket extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblID)
                             .addComponent(lblJenisPaket)
-                            .addComponent(lblJenisPaket1)
                             .addComponent(lblNamaPaket))
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cmbJenisLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cmbJenisPaket, 0, 462, Short.MAX_VALUE)
                                 .addComponent(txtID))
                             .addComponent(txtNamaPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -364,10 +349,6 @@ public class Menu_Paket extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbJenisPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblJenisPaket))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbJenisLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblJenisPaket1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNamaPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,10 +392,6 @@ public class Menu_Paket extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_tblPaketMouseClicked
-
-    private void cmbJenisLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJenisLayananActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbJenisLayananActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         int row = tblPaket.getSelectedRow();
@@ -571,7 +548,6 @@ public class Menu_Paket extends javax.swing.JFrame {
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnTransaksi;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JComboBox<String> cmbJenisLayanan;
     private javax.swing.JComboBox<String> cmbJenisPaket;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
@@ -580,7 +556,6 @@ public class Menu_Paket extends javax.swing.JFrame {
     private javax.swing.JLabel lblHarga;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblJenisPaket;
-    private javax.swing.JLabel lblJenisPaket1;
     private javax.swing.JLabel lblJudul;
     private javax.swing.JLabel lblNamaPaket;
     private javax.swing.JTable tblPaket;

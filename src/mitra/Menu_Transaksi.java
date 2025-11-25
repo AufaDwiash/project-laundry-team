@@ -236,7 +236,11 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                 + "       t.keterangan, t.biaya_tambahan, t.estimasi_selesai, "
                 + "       p.nama_paket, p.harga, t.qty, t.diskon, t.status_pembayaran, "
                 + "       t.tgl_ambil, t.status, t.layanan, "
-                + "       ((p.harga * t.qty) + t.biaya_tambahan - t.diskon) AS total "
+                + "       CASE "
+                + "         WHEN t.layanan = 'express' "
+                + "           THEN ((p.harga + 5000) * t.qty) + t.biaya_tambahan - t.diskon "
+                + "         ELSE (p.harga * t.qty) + t.biaya_tambahan - t.diskon "
+                + "       END AS total "
                 + "FROM tb_transaksi t "
                 + "JOIN tb_member m ON t.id_member = m.id_member "
                 + "LEFT JOIN tb_paket p ON t.id_paket = p.id_paket "
@@ -255,11 +259,11 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                     rs.getString("nama_paket"), // 6
                     rs.getDouble("qty"), // 7
                     rs.getDouble("diskon"), // 8
-                    rs.getString("status_pembayaran"),// 9
+                    rs.getString("status_pembayaran"), // 9
                     rs.getString("tgl_ambil"), // 10
                     rs.getString("status"), // 11
                     rs.getString("layanan"), // 12
-                    rs.getDouble("total") // 13 ✅
+                    rs.getDouble("total") // 13 ✅ sudah per kg
                 });
             }
 
@@ -582,7 +586,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(lblJudul)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 728, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -672,10 +676,6 @@ public class Menu_Transaksi extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -687,7 +687,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                         .addComponent(btnClear1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 768, Short.MAX_VALUE)
                         .addComponent(btnCetak))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -706,7 +706,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                             .addComponent(txtBiayaTambahan)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(21, 21, 21)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblBatasWaktu)
                             .addComponent(lblBatasWaktu1)
@@ -723,6 +723,10 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                             .addComponent(cmbDiskon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbLayanan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(51, 51, 51))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -783,15 +787,15 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblDiskon1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTambah)
                     .addComponent(btnClear)
                     .addComponent(btnClear1)
                     .addComponent(btnDelete)
                     .addComponent(btnCetak))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

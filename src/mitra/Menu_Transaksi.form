@@ -50,11 +50,6 @@
               <Component id="jPanel2" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="1317" max="-2" attributes="0"/>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
-          </Group>
           <Group type="102" alignment="1" attributes="0">
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
@@ -66,7 +61,7 @@
                       <Component id="btnClear1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnDelete" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="768" max="32767" attributes="0"/>
                       <Component id="btnCetak" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -88,7 +83,7 @@
                           <Component id="jComboBox1" max="32767" attributes="0"/>
                           <Component id="jComboBox2" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblBatasWaktu" min="-2" max="-2" attributes="0"/>
                           <Component id="lblBatasWaktu1" min="-2" max="-2" attributes="0"/>
@@ -109,6 +104,11 @@
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="1308" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -188,7 +188,7 @@
                   </Group>
                   <Component id="lblDiskon1" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnTambah" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -196,8 +196,8 @@
                   <Component id="btnDelete" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCetak" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="62" max="32767" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="493" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="537" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -391,7 +391,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="lblJudul" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="728" max="32767" attributes="0"/>
                   <Component id="jButton2" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="btnPaket" min="-2" pref="80" max="-2" attributes="0"/>
