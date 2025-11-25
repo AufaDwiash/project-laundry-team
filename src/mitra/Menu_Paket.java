@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Menu_Paket extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Menu_Paket.class.getName());
@@ -36,9 +35,7 @@ public class Menu_Paket extends javax.swing.JFrame {
                     rs.getString("id_paket"),
                     rs.getString("nama_paket"),
                     rs.getString("jenis"),
-                    rs.getString("harga"),
-                    rs.getString("layanan")
-                });
+                    rs.getString("harga"),});
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
@@ -158,13 +155,13 @@ public class Menu_Paket extends javax.swing.JFrame {
         tblPaket.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tblPaket.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nama Paket", "Jenis Paket", "Harga", "Layanan"
+                "ID", "Nama Paket", "Jenis Paket", "Harga"
             }
         ));
         tblPaket.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -386,9 +383,7 @@ public class Menu_Paket extends javax.swing.JFrame {
             txtNamaPaket.setText(tblPaket.getValueAt(row, 1).toString());
             cmbJenisPaket.setSelectedItem(tblPaket.getValueAt(row, 2).toString());
             txtHarga.setText(tblPaket.getValueAt(row, 3).toString());
-            cmbJenisLayanan.setSelectedItem(
-                    capitalize(tblPaket.getValueAt(row, 4).toString())
-            );
+
         }
 
     }//GEN-LAST:event_tblPaketMouseClicked
@@ -404,16 +399,15 @@ public class Menu_Paket extends javax.swing.JFrame {
         String nama = txtNamaPaket.getText();
         String jenis = cmbJenisPaket.getSelectedItem().toString();
         String harga = txtHarga.getText();
-        String layanan = cmbJenisLayanan.getSelectedItem().toString().toLowerCase();
-        String query = "UPDATE tb_paket SET nama_paket=?, jenis=?, layanan=?, harga=? WHERE id_paket=?";
+
+        String query = "UPDATE tb_paket SET nama_paket=?, jenis=?, harga=? WHERE id_paket=?";
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, nama);
             stmt.setString(2, jenis);
-            stmt.setString(3, layanan);
-            stmt.setString(4, harga);
-            stmt.setString(5, id);
+            stmt.setString(3, harga);
+            stmt.setString(4, id);
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(this, "Data berhasil diupdate!");
@@ -461,7 +455,6 @@ public class Menu_Paket extends javax.swing.JFrame {
         String id = txtID.getText();
         String nama = txtNamaPaket.getText();
         String jenis = cmbJenisPaket.getSelectedItem().toString();
-        String layanan = cmbJenisLayanan.getSelectedItem().toString().toLowerCase();
         String harga = txtHarga.getText();
 
         if (id.isEmpty() || nama.isEmpty() || harga.isEmpty()) {
@@ -469,14 +462,13 @@ public class Menu_Paket extends javax.swing.JFrame {
             return;
         }
 
-        String query = "INSERT INTO tb_paket (id_paket, nama_paket, jenis, layanan, harga) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO tb_paket (id_paket, nama_paket, jenis, harga) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, id);
             stmt.setString(2, nama);
             stmt.setString(3, jenis);
-            stmt.setString(4, layanan);  // ✔ benar
-            stmt.setString(5, harga);    // ✔ benar
+            stmt.setString(4, harga);
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(this, "Data berhasil disimpan!");
@@ -488,7 +480,7 @@ public class Menu_Paket extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        
+
         new Menu_Utama().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnHomeActionPerformed
@@ -518,26 +510,26 @@ public class Menu_Paket extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-    } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-        logger.log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    //</editor-fold>
+        //</editor-fold>
 
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(() -> new Menu_Paket().setVisible(true));
-}
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new Menu_Paket().setVisible(true));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
