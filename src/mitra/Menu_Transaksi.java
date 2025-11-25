@@ -324,9 +324,9 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         String total = String.valueOf(tblTransaksi.getValueAt(row, 13));
 
         StringBuilder sb = new StringBuilder();
-        sb.append("        LAUNDRY XYZ\n");
-        sb.append("     JL. CONTOH ALAMAT NO. 1\n");
-        sb.append("        Telp: 08xx-xxxx-xxxx\n");
+        sb.append("        QUEEN LAUNDRY\n");
+        sb.append("Jl. Gajah Magersari No.RT 17, Rw6\n");
+        sb.append("        Telp: 0817336427\n");
         sb.append("================================\n");
         sb.append("No. Trans : ").append(idTransaksi).append("\n");
         sb.append("Tanggal   : ").append(tanggal).append("\n");
@@ -346,7 +346,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         sb.append("Keterangan :    ").append(keterangan).append("\n");
         sb.append("================================\n");
         sb.append(" Terima kasih sudah mencuci di\n");
-        sb.append("          LAUNDRY XYZ\n");
+        sb.append("          QUEEN LAUNDRY\n");
 
         JTextArea area = new JTextArea(sb.toString());
         area.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
@@ -408,7 +408,6 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         btnTransaksi = new javax.swing.JButton();
         btnPaket = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        btnUser = new javax.swing.JButton();
         lblBatasWaktu1 = new javax.swing.JLabel();
         jDateChooser3 = new com.toedter.calendar.JDateChooser();
         lblBiayaTambahan1 = new javax.swing.JLabel();
@@ -576,16 +575,6 @@ public class Menu_Transaksi extends javax.swing.JFrame {
             }
         });
 
-        btnUser.setBackground(new java.awt.Color(102, 204, 255));
-        btnUser.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnUser.setForeground(new java.awt.Color(255, 255, 255));
-        btnUser.setText("User");
-        btnUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -594,8 +583,6 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(lblJudul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -614,7 +601,6 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                 .addComponent(lblJudul, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
             .addComponent(btnPaket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1185,11 +1171,6 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
-        new Menu_User().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnUserActionPerformed
-
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
         int row = tblTransaksi.getSelectedRow();
         if (row == -1) {
@@ -1234,7 +1215,6 @@ public class Menu_Transaksi extends javax.swing.JFrame {
     private javax.swing.JButton btnRiwayat;
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnTransaksi;
-    private javax.swing.JButton btnUser;
     private javax.swing.JComboBox<String> cmbDiskon;
     private javax.swing.JComboBox<String> cmbLayanan;
     private javax.swing.JComboBox<String> cmbMember1;

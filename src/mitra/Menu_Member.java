@@ -142,7 +142,6 @@ public class Menu_Member extends javax.swing.JFrame {
         btnHome = new javax.swing.JButton();
         btnRiwayat = new javax.swing.JButton();
         btnTransaksi = new javax.swing.JButton();
-        btnUser = new javax.swing.JButton();
         btnPaket = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -290,17 +289,6 @@ public class Menu_Member extends javax.swing.JFrame {
             }
         });
 
-        btnUser.setBackground(new java.awt.Color(102, 204, 255));
-        btnUser.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnUser.setForeground(new java.awt.Color(255, 255, 255));
-        btnUser.setText("User");
-        btnUser.setBorder(null);
-        btnUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserActionPerformed(evt);
-            }
-        });
-
         btnPaket.setBackground(new java.awt.Color(102, 204, 255));
         btnPaket.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnPaket.setForeground(new java.awt.Color(255, 255, 255));
@@ -331,8 +319,6 @@ public class Menu_Member extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(lblJudul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -349,7 +335,6 @@ public class Menu_Member extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblJudul, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
-            .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnPaket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnRiwayat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -604,11 +589,6 @@ public class Menu_Member extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
-        new Menu_User().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnUserActionPerformed
-
     private void btnPaketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaketActionPerformed
         new Menu_Paket().setVisible(true);
         this.dispose();
@@ -656,7 +636,6 @@ public class Menu_Member extends javax.swing.JFrame {
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnTransaksi;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton btnUser;
     private javax.swing.JComboBox<String> cmbJenisKelamin;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;

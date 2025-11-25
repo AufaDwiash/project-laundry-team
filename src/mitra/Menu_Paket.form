@@ -318,8 +318,6 @@
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="lblJudul" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnUser" min="-2" pref="80" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jButton2" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnPaket" min="-2" pref="80" max="-2" attributes="0"/>
@@ -340,7 +338,6 @@
               <Component id="btnTransaksi" max="32767" attributes="0"/>
               <Component id="btnRiwayat" alignment="0" max="32767" attributes="0"/>
               <Component id="btnHome" max="32767" attributes="0"/>
-              <Component id="btnUser" alignment="0" max="32767" attributes="0"/>
               <Component id="lblJudul" alignment="1" pref="50" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
@@ -457,23 +454,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnUser">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="cc" red="66" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="User"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUserActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
