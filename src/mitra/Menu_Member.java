@@ -18,6 +18,7 @@ public class Menu_Member extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Menu_Member.class.getName());
 
     private Connection conn;
+    private String currentUsername;
 
     /**
      * Creates new form FormMhs
@@ -144,6 +145,7 @@ public class Menu_Member extends javax.swing.JFrame {
         btnTransaksi = new javax.swing.JButton();
         btnPaket = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 0));
@@ -259,7 +261,7 @@ public class Menu_Member extends javax.swing.JFrame {
         btnHome.setBackground(new java.awt.Color(255, 0, 0));
         btnHome.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         btnHome.setForeground(new java.awt.Color(255, 255, 255));
-        btnHome.setText("Home");
+        btnHome.setText("Logout");
         btnHome.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), new java.awt.Color(255, 255, 255), null));
         btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,6 +313,16 @@ public class Menu_Member extends javax.swing.JFrame {
             }
         });
 
+        btnUser.setBackground(new java.awt.Color(102, 204, 255));
+        btnUser.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnUser.setText("Akun");
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -319,6 +331,8 @@ public class Menu_Member extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(lblJudul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -335,11 +349,12 @@ public class Menu_Member extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblJudul, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnPaket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnRiwayat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -483,9 +498,9 @@ public class Menu_Member extends javax.swing.JFrame {
 
         String id = txtID.getText();
         int confirm = JOptionPane.showConfirmDialog(this,
-            "Apakah Anda yakin ingin menghapus data ID " + id + "?",
-            "Konfirmasi Hapus",
-            JOptionPane.YES_NO_OPTION);
+                "Apakah Anda yakin ingin menghapus data ID " + id + "?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
             try {
@@ -568,9 +583,23 @@ public class Menu_Member extends javax.swing.JFrame {
     }//GEN-LAST:event_tblMemberMouseClicked
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        JOptionPane.showMessageDialog(this, "Kembali ke menu utama!");
-        new Menu_Utama().setVisible(true);
-        this.dispose();
+        int pilih = JOptionPane.showConfirmDialog(
+                this,
+                "Apakah Anda yakin ingin logout?",
+                "Konfirmasi Logout",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (pilih == JOptionPane.YES_OPTION) {
+            // Jika user pilih "YA"
+            new Menu_Login().setVisible(true);
+            this.dispose();   // tutup halaman sekarang
+        } else {
+            // Jika user pilih "TIDAK"
+            // Tidak melakukan apa-apa → tetap di Menu_User
+        }
+
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnRiwayatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiwayatActionPerformed
@@ -601,6 +630,11 @@ public class Menu_Member extends javax.swing.JFrame {
     private void txtAlamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlamatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAlamatActionPerformed
+
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+        new Menu_User(currentUsername).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -636,6 +670,7 @@ public class Menu_Member extends javax.swing.JFrame {
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnTransaksi;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnUser;
     private javax.swing.JComboBox<String> cmbJenisKelamin;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;

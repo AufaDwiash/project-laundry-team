@@ -15,6 +15,7 @@ import java.awt.print.PrinterException;
 public class Menu_Transaksi extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Menu_Transaksi.class.getName());
+    private String currentUsername;
 
     public Menu_Transaksi() {
 
@@ -412,6 +413,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         btnTransaksi = new javax.swing.JButton();
         btnPaket = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnUser = new javax.swing.JButton();
         lblBatasWaktu1 = new javax.swing.JLabel();
         jDateChooser3 = new com.toedter.calendar.JDateChooser();
         lblBiayaTambahan1 = new javax.swing.JLabel();
@@ -528,7 +530,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         btnHome.setBackground(new java.awt.Color(255, 0, 0));
         btnHome.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         btnHome.setForeground(new java.awt.Color(255, 255, 255));
-        btnHome.setText("Home");
+        btnHome.setText("Logout");
         btnHome.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), new java.awt.Color(255, 255, 255), null));
         btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -579,6 +581,16 @@ public class Menu_Transaksi extends javax.swing.JFrame {
             }
         });
 
+        btnUser.setBackground(new java.awt.Color(102, 204, 255));
+        btnUser.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnUser.setText("Akun");
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -586,7 +598,9 @@ public class Menu_Transaksi extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(lblJudul)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 728, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPaket, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -605,11 +619,12 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                 .addComponent(lblJudul, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
             .addComponent(btnPaket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(2, 2, 2))
             .addComponent(btnRiwayat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         lblBatasWaktu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -959,9 +974,22 @@ public class Menu_Transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        JOptionPane.showMessageDialog(this, "Kembali ke menu utama!");
-        new Menu_Utama().setVisible(true);
-        this.dispose();
+        int pilih = JOptionPane.showConfirmDialog(
+                this,
+                "Apakah Anda yakin ingin logout?",
+                "Konfirmasi Logout",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (pilih == JOptionPane.YES_OPTION) {
+            // Jika user pilih "YA"
+            new Menu_Login().setVisible(true);
+            this.dispose();   // tutup halaman sekarang
+        } else {
+            // Jika user pilih "TIDAK"
+            // Tidak melakukan apa-apa → tetap di Menu_User
+        }
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void cmbPaketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaketActionPerformed
@@ -1184,6 +1212,11 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         cetakStrukDariRow(row);
     }//GEN-LAST:event_btnCetakActionPerformed
 
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+        new Menu_User(currentUsername).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnUserActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1219,6 +1252,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
     private javax.swing.JButton btnRiwayat;
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnTransaksi;
+    private javax.swing.JButton btnUser;
     private javax.swing.JComboBox<String> cmbDiskon;
     private javax.swing.JComboBox<String> cmbLayanan;
     private javax.swing.JComboBox<String> cmbMember1;

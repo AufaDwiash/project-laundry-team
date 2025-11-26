@@ -138,7 +138,6 @@ public class Menu_Login extends javax.swing.JFrame {
         try {
             String sql = "SELECT * FROM tb_user WHERE username=? AND password=?";
             java.sql.Connection conn = Koneksi.getConnection();
-
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
 
             pst.setString(1, username);
@@ -147,21 +146,27 @@ public class Menu_Login extends javax.swing.JFrame {
             java.sql.ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-
                 String nama = rs.getString("nama");
-                String role = rs.getString("role");
+                String role;
+                try {
+                    // kalau kolom 'role' tidak ada di tabel, baris ini bisa dihapus
+                    role = rs.getString("role");
+                } catch (Exception e) {
+                    role = "";
+                }
 
                 JOptionPane.showMessageDialog(
                         this,
-                        "Login berhasil. Selamat datang, " + nama + " (" + role + ")",
+                        "Login berhasil. Selamat datang, " + nama
+                        + (role.isEmpty() ? "" : " (" + role + ")"),
                         "Sukses", JOptionPane.INFORMATION_MESSAGE
                 );
 
-                // SIMPAN ROLE JIKA DIBUTUHKAN DI MENU SELANJUTNYA
-                Menu_Utama mu = new Menu_Utama();
-                mu.setVisible(true);
+                // ⬇️⬇️ DI SINI KITA BUKA MENU_USER DENGAN USERNAME LOGIN
+                Menu_User menuUser = new Menu_User(username);
+                menuUser.setVisible(true);
 
-                this.dispose();
+                this.dispose(); // tutup form login
 
             } else {
                 JOptionPane.showMessageDialog(
@@ -170,6 +175,7 @@ public class Menu_Login extends javax.swing.JFrame {
                         "Gagal", JOptionPane.ERROR_MESSAGE
                 );
                 jUsername.setText("");
+                jPassword.setText("");
                 jUsername.requestFocus();
             }
 
@@ -193,25 +199,9 @@ public class Menu_Login extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Menu_Login().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> {
+            new Menu_Login().setVisible(true);  // <-- pakai L besar, sama dengan nama class
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
