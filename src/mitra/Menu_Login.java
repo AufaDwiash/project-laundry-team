@@ -9,7 +9,7 @@ public class Menu_Login extends javax.swing.JFrame {
     public Menu_Login() {
         initComponents();
         setLocationRelativeTo(null);                 // tengah layar
-        getRootPane().setDefaultButton(btnLogin);    // tekan Enter = login
+        getRootPane().setDefaultButton(btnDaftar);    // tekan Enter = login
         setTitle("Login");
 
     }
@@ -26,10 +26,12 @@ public class Menu_Login extends javax.swing.JFrame {
         lblUsername = new javax.swing.JLabel();
         lblLogin = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
-        btnLogin = new javax.swing.JButton();
+        btnDaftar = new javax.swing.JButton();
         lblLogin2 = new javax.swing.JLabel();
         jUsername = new javax.swing.JTextField();
         jPassword = new javax.swing.JPasswordField();
+        btnLogin1 = new javax.swing.JButton();
+        lblPassword1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -48,13 +50,13 @@ public class Menu_Login extends javax.swing.JFrame {
         lblPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblPassword.setText("Password");
 
-        btnLogin.setBackground(new java.awt.Color(204, 204, 255));
-        btnLogin.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
-        btnLogin.setText("Login");
-        btnLogin.setHideActionText(true);
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnDaftar.setBackground(new java.awt.Color(102, 102, 255));
+        btnDaftar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 12)); // NOI18N
+        btnDaftar.setText("Daftar");
+        btnDaftar.setHideActionText(true);
+        btnDaftar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnDaftarActionPerformed(evt);
             }
         });
 
@@ -73,6 +75,19 @@ public class Menu_Login extends javax.swing.JFrame {
                 jPasswordActionPerformed(evt);
             }
         });
+
+        btnLogin1.setBackground(new java.awt.Color(204, 204, 255));
+        btnLogin1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
+        btnLogin1.setText("Masuk");
+        btnLogin1.setHideActionText(true);
+        btnLogin1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogin1ActionPerformed(evt);
+            }
+        });
+
+        lblPassword1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblPassword1.setText("Belum punya akun ?");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,8 +111,14 @@ public class Menu_Login extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(82, 82, 82)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblPassword1)
+                .addGap(101, 101, 101))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,15 +136,33 @@ public class Menu_Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                .addComponent(btnLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+    private void btnDaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDaftarActionPerformed
+        new Menu_Daftar().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDaftarActionPerformed
+
+    private void jPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordActionPerformed
+
+    private void jUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jUsernameActionPerformed
+
+    private void btnLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin1ActionPerformed
+        // TODO add your handling code here:
 
         String username = jUsername.getText().trim();
         String password = new String(jPassword.getPassword()).trim();
@@ -185,15 +224,7 @@ public class Menu_Login extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
-    }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void jPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordActionPerformed
-
-    private void jUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jUsernameActionPerformed
+    }//GEN-LAST:event_btnLogin1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,12 +236,14 @@ public class Menu_Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnDaftar;
+    private javax.swing.JButton btnLogin1;
     private javax.swing.JPasswordField jPassword;
     private javax.swing.JTextField jUsername;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblLogin2;
     private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPassword1;
     private javax.swing.JLabel lblUsername;
     // End of variables declaration//GEN-END:variables
 }

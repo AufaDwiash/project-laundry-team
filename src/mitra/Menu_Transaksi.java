@@ -342,7 +342,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         sb.append("Qty       : ").append(qty).append(" kg\n");
         sb.append("Biaya Tamb: Rp ").append(biayaTambahan).append("\n");
         sb.append("Diskon    : ").append(diskon).append("\n");
-        sb.append("Estimasi  : ").append(estimasiSelesai).append("\n");
+        sb.append("Tgl Taruh  : ").append(estimasiSelesai).append("\n");
         sb.append("Tgl Ambil : ").append(tglAmbil).append("\n");
         sb.append("Status    : ").append(status).append("\n");
         sb.append("Status Bayar: ").append(statusBayar).append("\n");
@@ -414,6 +414,7 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         btnPaket = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnUser = new javax.swing.JButton();
+        btnDashboard = new javax.swing.JButton();
         lblBatasWaktu1 = new javax.swing.JLabel();
         jDateChooser3 = new com.toedter.calendar.JDateChooser();
         lblBiayaTambahan1 = new javax.swing.JLabel();
@@ -591,6 +592,17 @@ public class Menu_Transaksi extends javax.swing.JFrame {
             }
         });
 
+        btnDashboard.setBackground(new java.awt.Color(102, 204, 255));
+        btnDashboard.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDashboard.setForeground(new java.awt.Color(255, 255, 255));
+        btnDashboard.setText("Dashboard");
+        btnDashboard.setBorder(null);
+        btnDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDashboardActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -599,6 +611,8 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(lblJudul)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -623,8 +637,9 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                 .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(2, 2, 2))
             .addComponent(btnRiwayat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         lblBatasWaktu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -1217,35 +1232,24 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnUserActionPerformed
 
+    private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
+        // TODO add your handling code here:
+        new Menu_Utama().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDashboardActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Menu_Transaksi().setVisible(true));
+        new Menu_Login().setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnClear1;
+    private javax.swing.JButton btnDashboard;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnPaket;
