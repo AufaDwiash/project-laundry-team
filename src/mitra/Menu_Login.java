@@ -201,9 +201,8 @@ public class Menu_Login extends javax.swing.JFrame {
                         "Sukses", JOptionPane.INFORMATION_MESSAGE
                 );
 
-                // ⬇️⬇️ DI SINI KITA BUKA MENU_USER DENGAN USERNAME LOGIN
-                Menu_User menuUser = new Menu_User(username);
-                menuUser.setVisible(true);
+                Menu_Utama menuUtama = new Menu_Utama();
+                menuUtama.setVisible(true);
 
                 this.dispose(); // tutup form login
 

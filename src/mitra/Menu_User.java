@@ -224,6 +224,7 @@ public class Menu_User extends javax.swing.JFrame {
         btnUser.setBackground(new java.awt.Color(204, 204, 204));
         btnUser.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnUser.setText("Akun");
+        btnUser.setBorder(null);
         btnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUserActionPerformed(evt);
