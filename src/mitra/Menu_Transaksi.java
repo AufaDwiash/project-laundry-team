@@ -7,10 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import com.toedter.calendar.JDateChooser;
 import java.text.SimpleDateFormat;
-import java.awt.Font;
+
 import java.awt.print.PrinterException;
+import javax.print.*; // DocPrintJob, DocFlavor, PrintService, PrintServiceLookup
+import java.nio.charset.StandardCharsets;
 
 public class Menu_Transaksi extends javax.swing.JFrame {
 
@@ -18,8 +19,9 @@ public class Menu_Transaksi extends javax.swing.JFrame {
     private String currentUsername;
 
     public Menu_Transaksi() {
-
         initComponents();
+
+        // siapkan model tabel
         DefaultTableModel model = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -40,25 +42,24 @@ public class Menu_Transaksi extends javax.swing.JFrame {
                 }
         ) {
             @Override
-            public boolean isCellEditable(int row, int col
-            ) {
+            public boolean isCellEditable(int row, int col) {
                 return false; // tabel read-only
             }
         };
         tblTransaksi.setModel(model);
 
-        // (opsional) sembunyikan kolom ID biar nggak kelihatan
-        tblTransaksi.getColumnModel()
-                .getColumn(0).setMinWidth(0);
+        // sembunyikan kolom ID
+        tblTransaksi.getColumnModel().getColumn(0).setMinWidth(0);
         tblTransaksi.getColumnModel().getColumn(0).setMaxWidth(0);
         tblTransaksi.getColumnModel().getColumn(0).setWidth(0);
+
         connect();
         loadMember();
         loadPaket();
         loadTransaksi();
         jDateChooser1.setDate(new java.util.Date());
 
-        // Event klik baris pada tabel
+        // event klik baris
         tblTransaksi.getSelectionModel().addListSelectionListener(e -> {
             if (e.getValueIsAdjusting()) {
                 return;
@@ -66,17 +67,14 @@ public class Menu_Transaksi extends javax.swing.JFrame {
 
             int row = tblTransaksi.getSelectedRow();
 
-            // 🔹 Kalau tidak ada baris yang dipilih
             if (row == -1) {
-                // mode kembali ke TAMBAH
+                // mode tambah
                 btnTambah.setEnabled(true);
                 btnClear1.setEnabled(false);
                 btnDelete.setEnabled(false);
-                btnCetak.setEnabled(false);   // ⬅️ cetak tidak bisa dipakai
+                btnCetak.setEnabled(false);
                 return;
             }
-
-            System.out.println("Row selected: " + row);
 
             String tanggal = String.valueOf(tblTransaksi.getValueAt(row, 1));
             String member = String.valueOf(tblTransaksi.getValueAt(row, 2));
@@ -123,34 +121,146 @@ public class Menu_Transaksi extends javax.swing.JFrame {
             jComboBox2.setSelectedItem(status);
             cmbLayanan.setSelectedItem(layanan);
 
-            // 🔹 Mode EDIT
+            // mode edit
             btnTambah.setEnabled(false);
             btnClear1.setEnabled(true);
             btnDelete.setEnabled(true);
-            btnCetak.setEnabled(true);  // ⬅️ sekarang boleh cetak
+            btnCetak.setEnabled(true);
         });
 
-        btnClear1.setEnabled(false);  // Perbarui
-        btnDelete.setEnabled(false);  // Hapus
-        btnTambah.setEnabled(true);   // Tambah on di awal
-        btnCetak.setEnabled(false);   // ⬅️ CETAK awalnya non-aktif
+        btnClear1.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnTambah.setEnabled(true);
+        btnCetak.setEnabled(false);
+    }
+
+    private void ensureConnection() {
+        if (conn == null) {
+            connect();
+        }
+    }
+
+    // ========================
+    // KONEKSI DATABASE
+    // ========================
+    private void connect() {
+         try {
+        String url = "jdbc:mysql://localhost:3306/db_laundry";
+        String user = "root";
+        String pass = "";
+        conn = DriverManager.getConnection(url, user, pass);
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Koneksi gagal: " + e.getMessage());
+    }
     }
 
     private Connection conn;
 
-    private void connect() {
+    // =======================
+    //  HELPER CETAK STRUK
+    // =======================
+    private String center(String text, int width) {
+        if (text == null) {
+            text = "";
+        }
+        if (text.length() >= width) {
+            return text;
+        }
+        int pad = (width - text.length()) / 2;
+        return " ".repeat(pad) + text;
+    }
+
+    private String line(int width) {
+        return "-".repeat(width);
+    }
+
+    /**
+     * Kirim teks struk langsung ke printer default (raw text)
+     */
+    private void cetak_struk(
+            String idTransaksi,
+            String tanggal,
+            String member,
+            String paket,
+            String layanan,
+            String qty,
+            String biayaTambahan,
+            String diskon,
+            String estimasi,
+            String tglAmbil,
+            String status,
+            String statusBayar,
+            String total,
+            String keterangan
+    ) {
         try {
-            String url = "jdbc:mysql://localhost:3306/db_laundry"; // ganti sesuai port DB kamu
-            String user = "root"; // username MySQL kamu    
-            String pass = "";     // password MySQL kamu
-            conn = DriverManager.getConnection(url, user, pass);
-            System.out.println("Koneksi ke database berhasil.");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Koneksi database gagal: " + e.getMessage());
+            final int WIDTH = 48; // lebar karakter thermal 80mm
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(center("QUEEN LAUNDRY", WIDTH)).append("\n");
+            sb.append(center("Jl. Gajah Magersari No.RT 17, RW 6", WIDTH)).append("\n");
+            sb.append(center("Telp: 0817336427", WIDTH)).append("\n");
+            sb.append(line(WIDTH)).append("\n");
+
+            sb.append(String.format("%-14s: %s\n", "No Trans", idTransaksi));
+            sb.append(String.format("%-14s: %s\n", "Tanggal", tanggal));
+            sb.append(String.format("%-14s: %s\n", "Nama", member));
+            sb.append(line(WIDTH)).append("\n");
+
+            sb.append(String.format("%-14s: %s\n", "Paket", paket));
+            sb.append(String.format("%-14s: %s\n", "Layanan", layanan));
+            sb.append(String.format("%-14s: %s kg\n", "Qty", qty));
+            sb.append(String.format("%-14s: Rp %s\n", "Biaya Tamb", biayaTambahan));
+            sb.append(String.format("%-14s: %s\n", "Diskon", diskon));
+            sb.append(String.format("%-14s: %s\n", "Tgl Taruh", estimasi));
+            sb.append(String.format("%-14s: %s\n", "Tgl Ambil", tglAmbil));
+            sb.append(String.format("%-14s: %s\n", "Status", status));
+            sb.append(String.format("%-14s: %s\n", "Status Bayar", statusBayar));
+
+            sb.append(line(WIDTH)).append("\n");
+            sb.append(center("TOTAL BAYAR : Rp " + total, WIDTH)).append("\n");
+            sb.append(line(WIDTH)).append("\n");
+
+            sb.append("Keterangan:\n");
+            sb.append(keterangan == null ? "" : keterangan).append("\n");
+            sb.append(line(WIDTH)).append("\n");
+
+            sb.append(center("Terima kasih sudah mencuci di", WIDTH)).append("\n");
+            sb.append(center("QUEEN LAUNDRY", WIDTH)).append("\n");
+            sb.append("\n\n\n"); // feed kertas
+
+            // === kirim ke printer default ===
+            PrintService printer = PrintServiceLookup.lookupDefaultPrintService();
+            if (printer == null) {
+                JOptionPane.showMessageDialog(this, "Printer default tidak ditemukan. Set dulu printer thermal sebagai default di OS.");
+                return;
+            }
+
+            DocPrintJob job = printer.createPrintJob();
+            byte[] data = sb.toString().getBytes(StandardCharsets.UTF_8);
+
+            DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+            Doc doc = new SimpleDoc(data, flavor, null);
+
+            job.print(doc, null);
+
+            JOptionPane.showMessageDialog(this, "Struk berhasil dikirim ke printer.");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mencetak struk: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
+ 
+
     private void loadMember() {
+        ensureConnection();
+        if (conn == null) {
+            return;
+        }
+
         try {
             String sql = "SELECT nama FROM tb_member";
             PreparedStatement pst = conn.prepareStatement(sql);
@@ -328,44 +438,22 @@ public class Menu_Transaksi extends javax.swing.JFrame {
         String layanan = String.valueOf(tblTransaksi.getValueAt(row, 12));
         String total = String.valueOf(tblTransaksi.getValueAt(row, 13));
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("        QUEEN LAUNDRY\n");
-        sb.append("Jl. Gajah Magersari No.RT 17, Rw6\n");
-        sb.append("        Telp: 0817336427\n");
-        sb.append("================================\n");
-        sb.append("No. Trans : ").append(idTransaksi).append("\n");
-        sb.append("Tanggal   : ").append(tanggal).append("\n");
-        sb.append("Member    : ").append(member).append("\n");
-        sb.append("--------------------------------\n");
-        sb.append("Paket     : ").append(paket).append("\n");
-        sb.append("Layanan   : ").append(layanan).append("\n");
-        sb.append("Qty       : ").append(qty).append(" kg\n");
-        sb.append("Biaya Tamb: Rp ").append(biayaTambahan).append("\n");
-        sb.append("Diskon    : ").append(diskon).append("\n");
-        sb.append("Tgl Taruh  : ").append(estimasiSelesai).append("\n");
-        sb.append("Tgl Ambil : ").append(tglAmbil).append("\n");
-        sb.append("Status    : ").append(status).append("\n");
-        sb.append("Status Bayar: ").append(statusBayar).append("\n");
-        sb.append("--------------------------------\n");
-        sb.append("TOTAL BAYAR: Rp ").append(total).append("\n");
-        sb.append("Keterangan :    ").append(keterangan).append("\n");
-        sb.append("================================\n");
-        sb.append(" Terima kasih sudah mencuci di\n");
-        sb.append("          QUEEN LAUNDRY\n");
-
-        JTextArea area = new JTextArea(sb.toString());
-        area.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
-
-        try {
-            boolean complete = area.print();
-            if (complete) {
-                JOptionPane.showMessageDialog(this, "Struk berhasil dikirim ke printer.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Cetak struk dibatalkan.");
-            }
-        } catch (java.awt.print.PrinterException ex) {
-            JOptionPane.showMessageDialog(this, "Gagal mencetak struk: " + ex.getMessage());
-        }
+        cetak_struk(
+                idTransaksi,
+                tanggal,
+                member,
+                paket,
+                layanan,
+                qty,
+                biayaTambahan,
+                diskon,
+                estimasiSelesai,
+                tglAmbil,
+                status,
+                statusBayar,
+                total,
+                keterangan
+        );
     }
 
 // Versi untuk int (buang desimal jika ada)
