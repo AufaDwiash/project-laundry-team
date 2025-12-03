@@ -154,6 +154,12 @@ public class Menu_Paket extends javax.swing.JFrame {
         lblHarga.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblHarga.setText("Harga");
 
+        txtID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDActionPerformed(evt);
+            }
+        });
+
         txtHarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtHargaActionPerformed(evt);
@@ -564,6 +570,10 @@ public class Menu_Paket extends javax.swing.JFrame {
         new Menu_Utama().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnDashboardActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDActionPerformed
 
     /**
      * @param args the command line arguments
